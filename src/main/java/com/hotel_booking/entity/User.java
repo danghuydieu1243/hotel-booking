@@ -1,6 +1,7 @@
 package com.hotel_booking.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -20,12 +21,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
 
-    String username;
+//    String username;
+//    String password;
+//    String firstName;
+//    String lastName;
+//    LocalDate dob;
+
+//    @ManyToMany
+//    Set<Role> roles;
+
+    String name;
+    String email;
     String password;
-    String firstName;
-    LocalDate dob;
-    String lastName;
+    String phone;
 
     @ManyToMany
     Set<Role> roles;
+
+    LocalDate createdAt;
 }
