@@ -8,10 +8,10 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RoomCreationRequest {
-    String hotelId;
+public class HotelUpdateRequest {
     String name;
+    String street;
+    String district;
+    String city;
     String description;
-    String price;
-    Boolean available;
 }

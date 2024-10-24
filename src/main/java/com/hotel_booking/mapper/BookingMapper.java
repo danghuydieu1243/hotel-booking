@@ -14,5 +14,4 @@ public interface BookingMapper {
     Booking toBooking(BookingCreationRequest request);
     BookingResponse toBookingResponse(Booking booking);
     void updateBooking(@MappingTarget Booking booking, BookingUpdateRequest request);
-
 }

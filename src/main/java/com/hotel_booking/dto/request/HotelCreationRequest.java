@@ -1,4 +1,18 @@
 package com.hotel_booking.dto.request;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class HotelCreationRequest {
+    String ownerId;
+    String name;
+    String street;
+    String district;
+    String city;
+    String description;
 }

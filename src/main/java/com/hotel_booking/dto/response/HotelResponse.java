@@ -1,4 +1,4 @@
-package com.hotel_booking.dto.request;
+package com.hotel_booking.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,10 +8,12 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RoomCreationRequest {
-    String hotelId;
+public class HotelResponse {
+    String id;
+    String ownerId;
     String name;
+    String street;
+    String district;
+    String city;
     String description;
-    String price;
-    Boolean available;
 }
