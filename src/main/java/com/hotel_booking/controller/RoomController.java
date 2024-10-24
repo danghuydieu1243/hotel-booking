@@ -1,0 +1,58 @@
+package com.hotel_booking.controller;
+
+import com.hotel_booking.dto.request.RoomCreationRequest;
+import com.hotel_booking.dto.request.RoomUpdateRequest;
+import com.hotel_booking.dto.response.ApiResponse;
+import com.hotel_booking.dto.response.RoomResponse;
+import com.hotel_booking.service.RoomService;
+import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/rooms")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
+public class RoomController {
+    RoomService roomService;
+
+    @PostMapping
+    ApiResponse<RoomResponse> createRoom(@RequestBody @Valid RoomCreationRequest request) {
+        return ApiResponse.<RoomResponse>builder()
+                .result(roomService.createRoom(request))
+                .build();
+    }
+
+    @GetMapping
+    ApiResponse<List<RoomResponse>> getRooms() {
+        return ApiResponse.<List<RoomResponse>>builder()
+                .result(roomService.getRooms())
+                .build();
+    }
+
+    @GetMapping("/{roomId}")
+    ApiResponse<RoomResponse> getRoom(@PathVariable("roomId") String roomId) {
+        return ApiResponse.<RoomResponse>builder()
+                .result(roomService.getRoom(roomId))
+                .build();
+    }
+
+    @PutMapping("/{roomId}")
+    ApiResponse<RoomResponse> updateRoom(@PathVariable String roomId, @RequestBody RoomUpdateRequest request) {
+        return ApiResponse.<RoomResponse>builder()
+                .result(roomService.updateRoom(roomId, request))
+                .build();
+    }
+
+    @DeleteMapping("/{roomId}")
+    ApiResponse<String> deleteRoom(@PathVariable String roomId) {
+        roomService.deleteRoom(roomId);
+        return ApiResponse.<String>builder().result("Room has been deleted").build();
+    }
+}

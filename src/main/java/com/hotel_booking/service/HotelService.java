@@ -2,11 +2,8 @@ package com.hotel_booking.service;
 
 import com.hotel_booking.dto.request.HotelCreationRequest;
 import com.hotel_booking.dto.request.HotelUpdateRequest;
-import com.hotel_booking.dto.request.UserUpdateRequest;
 import com.hotel_booking.dto.response.HotelResponse;
-import com.hotel_booking.dto.response.UserResponse;
 import com.hotel_booking.entity.Hotel;
-import com.hotel_booking.entity.User;
 import com.hotel_booking.exception.AppException;
 import com.hotel_booking.exception.ErrorCode;
 import com.hotel_booking.mapper.HotelMapper;

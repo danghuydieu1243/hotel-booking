@@ -1,52 +1,55 @@
 package com.hotel_booking.service;
 
-import java.util.ArrayList;
+import com.hotel_booking.dto.request.RoomCreationRequest;
+import com.hotel_booking.dto.request.RoomUpdateRequest;
+import com.hotel_booking.dto.response.RoomResponse;
+import com.hotel_booking.entity.Room;
+import com.hotel_booking.exception.AppException;
+import com.hotel_booking.exception.ErrorCode;
+import com.hotel_booking.mapper.RoomMapper;
+import com.hotel_booking.repository.RoomRepository;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
-import java.util.Optional;
 
+@Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class RoomService {
+    RoomRepository roomRepository;
+    RoomMapper roomMapper;
 
-    private List<Room> roomList = new ArrayList<>();
+    public RoomResponse createRoom(RoomCreationRequest request) {
+        Room room = roomMapper.toRoom(request);
+        room = roomRepository.save(room);
 
-    // Add a new room
-    public void addRoom(Room room) {
-        roomList.add(room);
-        System.out.println("Room added: " + room);
+        return roomMapper.toRoomResponse(room);
     }
 
-    // Update room details
-    public void updateRoom(int roomId, Room updatedRoom) {
-        Optional<Room> roomOptional = roomList.stream().filter(room -> room.getId() == roomId).findFirst();
-        if (roomOptional.isPresent()) {
-            Room room = roomOptional.get();
-            room.setNumber(updatedRoom.getNumber());
-            room.setType(updatedRoom.getType());
-            room.setPrice(updatedRoom.getPrice());
-            room.setAvailable(updatedRoom.isAvailable());
-            System.out.println("Room updated: " + room);
-        } else {
-            System.out.println("Room not found with ID: " + roomId);
-        }
+    public List<RoomResponse> getRooms() {
+        log.info("In method get Rooms");
+        return roomRepository.findAll().stream().map(roomMapper::toRoomResponse).toList();
     }
 
-    // Delete a room
-    public void deleteRoom(int roomId) {
-        roomList.removeIf(room -> room.getId() == roomId);
-        System.out.println("Room with ID " + roomId + " has been deleted.");
+    public RoomResponse getRoom(String id) {
+        return roomMapper.toRoomResponse(
+                roomRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ROOM_NOT_FOUND)));
     }
 
-    // Check room availability
-    public boolean isRoomAvailable(int roomId) {
-        return roomList.stream().anyMatch(room -> room.getId() == roomId && room.isAvailable());
+    public RoomResponse updateRoom(String roomId, RoomUpdateRequest request) {
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new AppException(ErrorCode.ROOM_NOT_FOUND));
+
+        roomMapper.updateRoom(room, request);
+
+        return roomMapper.toRoomResponse(roomRepository.save(room));
     }
 
-    // Get all rooms
-    public List<Room> getAllRooms() {
-        return roomList;
-    }
-
-    // Find room by ID
-    public Room getRoomById(int roomId) {
-        return roomList.stream().filter(room -> room.getId() == roomId).findFirst().orElse(null);
+    public void deleteRoom(String roomId) {
+        roomRepository.deleteById(roomId);
     }
 }
