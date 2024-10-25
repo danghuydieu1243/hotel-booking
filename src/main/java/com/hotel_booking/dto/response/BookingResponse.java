@@ -3,6 +3,8 @@ package com.hotel_booking.dto.response;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,4 +17,5 @@ public class BookingResponse {
     String checkInDate;
     String checkOutDate;
     String status;
+    LocalDate createdAt;
 }
