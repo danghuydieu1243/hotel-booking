@@ -15,4 +15,5 @@ public class RoomResponse {
     String description;
     String price;
     Boolean available;
+    String imageLocation;
 }

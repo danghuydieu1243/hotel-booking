@@ -13,4 +13,5 @@ public class RoomUpdateRequest {
     String description;
     String price;
     Boolean available;
+    String imageLocation;
 }

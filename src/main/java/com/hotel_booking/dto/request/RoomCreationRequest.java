@@ -14,4 +14,5 @@ public class RoomCreationRequest {
     String description;
     String price;
     Boolean available;
+    String imageLocation;
 }
