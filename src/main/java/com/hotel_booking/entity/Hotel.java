@@ -25,7 +25,7 @@ public class Hotel {
     String district;
     String city;
     String description;
-    Double rating;
+    Double rating = 0.0;
     @ManyToMany
     Set<Utilities> utilities;
 }

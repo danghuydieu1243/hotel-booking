@@ -20,6 +20,7 @@ public enum ErrorCode {
     ROOM_NOT_FOUND(1010, "Room not found", HttpStatus.NOT_FOUND),
     BOOKING_NOT_FOUND(1011, "Booking not found", HttpStatus.NOT_FOUND),
     UTILITIES_NOT_FOUND(1012, "Utilities not found", HttpStatus.NOT_FOUND),
+    RATINGS_NOT_FOUND(1013, "Ratings not found", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

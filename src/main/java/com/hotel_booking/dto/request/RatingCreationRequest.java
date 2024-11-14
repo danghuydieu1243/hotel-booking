@@ -1,4 +1,4 @@
-package com.hotel_booking.dto.response;
+package com.hotel_booking.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,10 +8,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RateResponse {
-    String id;
+public class RatingCreationRequest {
     String hotelId;
     String userId;
-    String point;
+    Double point;
     String comment;
 }

@@ -2,12 +2,8 @@ package com.hotel_booking.service;
 
 import com.hotel_booking.dto.request.BookingCreationRequest;
 import com.hotel_booking.dto.request.BookingUpdateRequest;
-import com.hotel_booking.dto.request.HotelCreationRequest;
-import com.hotel_booking.dto.request.HotelUpdateRequest;
 import com.hotel_booking.dto.response.BookingResponse;
-import com.hotel_booking.dto.response.HotelResponse;
 import com.hotel_booking.entity.Booking;
-import com.hotel_booking.entity.Hotel;
 import com.hotel_booking.exception.AppException;
 import com.hotel_booking.exception.ErrorCode;
 import com.hotel_booking.mapper.BookingMapper;
@@ -18,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,6 +27,7 @@ public class BookingService {
 
     public BookingResponse createBooking(BookingCreationRequest request) {
         Booking booking = bookingMapper.toBooking(request);
+        booking.setCreatedAt(LocalDate.now());
         booking = bookingRepository.save(booking);
 
         return bookingMapper.toBookingResponse(booking);

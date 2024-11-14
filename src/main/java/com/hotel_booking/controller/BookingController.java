@@ -2,11 +2,8 @@ package com.hotel_booking.controller;
 
 import com.hotel_booking.dto.request.BookingCreationRequest;
 import com.hotel_booking.dto.request.BookingUpdateRequest;
-import com.hotel_booking.dto.request.HotelCreationRequest;
-import com.hotel_booking.dto.request.HotelUpdateRequest;
 import com.hotel_booking.dto.response.ApiResponse;
 import com.hotel_booking.dto.response.BookingResponse;
-import com.hotel_booking.dto.response.HotelResponse;
 import com.hotel_booking.service.BookingService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;

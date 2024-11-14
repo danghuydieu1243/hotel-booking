@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Builder
@@ -14,13 +16,14 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Rate {
+public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
 
     String hotelId;
     String userId;
-    String point;
+    Double point;
     String comment;
+    LocalDate createdAt;
 }

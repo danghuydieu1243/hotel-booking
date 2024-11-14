@@ -1,16 +1,20 @@
-package com.hotel_booking.dto.request;
+package com.hotel_booking.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RateUpdateRequest {
+public class RatingResponse {
+    String id;
     String hotelId;
     String userId;
-    String point;
+    Double point;
     String comment;
+    LocalDate createdAt;
 }
