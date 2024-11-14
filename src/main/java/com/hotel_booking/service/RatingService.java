@@ -69,14 +69,15 @@ public class RatingService {
     }
 
     private void updateRatingHotel(String ratingId) {
-        Hotel hotel = hotelRepository.findById(ratingId).orElseThrow(() -> new AppException(ErrorCode.HOTEL_NOT_FOUND));
+        Rating rating = ratingRepository.findById(ratingId).orElseThrow(() -> new AppException(ErrorCode.RATINGS_NOT_FOUND));
+        Hotel hotel = hotelRepository.findById(rating.getHotelId()).orElseThrow(() -> new AppException(ErrorCode.HOTEL_NOT_FOUND));
         List<Rating> ratings = ratingRepository.findAllByHotelId(hotel.getId());
-        Double rating = 0.0;
+        Double rate = 0.0;
         for (Rating r : ratings) {
-            rating += r.getPoint();
+            rate += r.getPoint();
         }
-        rating = rating / ratings.size();
-        hotel.setRating(rating);
+        rate = rate / ratings.size();
+        hotel.setRating(rate);
         hotelRepository.save(hotel);
     }
 }

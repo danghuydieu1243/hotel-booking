@@ -25,6 +25,7 @@ public class Hotel {
     String district;
     String city;
     String description;
+    @Builder.Default
     Double rating = 0.0;
     @ManyToMany
     Set<Utilities> utilities;
