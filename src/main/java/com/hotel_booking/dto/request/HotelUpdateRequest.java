@@ -1,7 +1,10 @@
 package com.hotel_booking.dto.request;
 
+import com.hotel_booking.entity.Utilities;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -14,4 +17,5 @@ public class HotelUpdateRequest {
     String district;
     String city;
     String description;
+    List<Utilities> utilities;
 }

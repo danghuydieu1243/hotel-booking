@@ -1,7 +1,10 @@
 package com.hotel_booking.dto.response;
 
+import com.hotel_booking.entity.Utilities;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,4 +19,6 @@ public class HotelResponse {
     String district;
     String city;
     String description;
+    Double rating;
+    Set<Utilities> utilities;
 }
