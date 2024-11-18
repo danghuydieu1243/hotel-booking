@@ -20,5 +20,5 @@ public class Utilities {
     String id;
 
     String name;
-    String description;
+    String imageUrl;
 }
