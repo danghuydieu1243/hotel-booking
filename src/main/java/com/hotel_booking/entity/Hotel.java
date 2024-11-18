@@ -29,4 +29,6 @@ public class Hotel {
     Double rating = 0.0;
     @ManyToMany
     Set<Utilities> utilities;
+    @ManyToMany
+    Set<HotelImage> hotelImages;
 }
