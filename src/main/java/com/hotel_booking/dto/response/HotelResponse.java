@@ -1,9 +1,11 @@
 package com.hotel_booking.dto.response;
 
+import com.hotel_booking.entity.HotelImage;
 import com.hotel_booking.entity.Utilities;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,4 +23,5 @@ public class HotelResponse {
     String description;
     Double rating;
     Set<Utilities> utilities;
+    Set<HotelImage> hotelImages;
 }
