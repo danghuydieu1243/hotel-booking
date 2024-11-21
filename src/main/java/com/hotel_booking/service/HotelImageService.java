@@ -38,11 +38,11 @@ public class HotelImageService {
 
     public HotelImageResponse getHotelImage(String id) {
         return hotelImageMapper.toHotelImageResponse(
-                hotelImageRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.HOTEL_NOT_FOUND)));
+                hotelImageRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND)));
     }
 
     public HotelImageResponse updateHotelImage(String hotelImageId, HotelImageUpdateRequest request) {
-        HotelImage hotelImage = hotelImageRepository.findById(hotelImageId).orElseThrow(() -> new AppException(ErrorCode.HOTEL_NOT_FOUND));
+        HotelImage hotelImage = hotelImageRepository.findById(hotelImageId).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
 
         hotelImageMapper.updateHotelImage(hotelImage, request);
 

@@ -21,6 +21,7 @@ public enum ErrorCode {
     BOOKING_NOT_FOUND(1011, "Booking not found", HttpStatus.NOT_FOUND),
     UTILITIES_NOT_FOUND(1012, "Utilities not found", HttpStatus.NOT_FOUND),
     RATINGS_NOT_FOUND(1013, "Ratings not found", HttpStatus.NOT_FOUND),
+    IMAGE_NOT_FOUND(1014, "Image not found", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
