@@ -1,6 +1,9 @@
 package com.hotel_booking.service;
 
+import com.hotel_booking.common.BookingStatus;
+import com.hotel_booking.common.PaymentStatus;
 import com.hotel_booking.configuration.VNPayConfig;
+import com.hotel_booking.dto.request.InvoiceCreationRequest;
 import com.hotel_booking.entity.Booking;
 import com.hotel_booking.entity.Room;
 import com.hotel_booking.exception.AppException;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -35,6 +39,7 @@ public class VNPayService {
 
     RoomRepository roomRepository;
 
+    InvoiceService invoiceService;
 
 
     //    public boolean validatePayment(Map<String, String> params) {
@@ -72,7 +77,11 @@ public class VNPayService {
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        vnp_Params.put("vnp_Amount", String.format("%.0f", Double.parseDouble(room.getPrice())  * 100)); // VNPay yêu cầu số tiền tính bằng đồng
+
+        long  temp = ChronoUnit.DAYS.between(booking.getCheckInDate(), booking.getCheckOutDate());
+        double totalAmount = Double.parseDouble(room.getPrice()) * temp;
+
+        vnp_Params.put("vnp_Amount", String.format("%.0f", totalAmount  * 100)); // VNPay yêu cầu số tiền tính bằng đồng
         vnp_Params.put("vnp_CurrCode", "VND");
 
         if (bankCode != null && !bankCode.isEmpty()) {
@@ -144,6 +153,10 @@ public class VNPayService {
             }
         }
 
+        Booking booking = bookingRepository.findById(params.get("vnp_TxnRef")).orElseThrow(() -> new AppException(ErrorCode.BOOKING_NOT_FOUND));
+        Room room = roomRepository.findById(booking.getRoomId()).orElseThrow(() -> new AppException(ErrorCode.ROOM_NOT_FOUND));
+        Double totalAmount = Double.parseDouble(params.get("vnp_Amount"));
+
         String vnp_SecureHash = params.get("vnp_SecureHash");
         System.out.println(vnp_SecureHash);
         if (fields.containsKey("vnp_SecureHashType")) {
@@ -154,9 +167,43 @@ public class VNPayService {
         }
         String signValue = vnPayUtils.hashAllFields(fields);
         System.out.println(signValue);
-        if (signValue.equals(vnp_SecureHash) && params.get("vnp_ResponseCode").equals("00"))
-            return "Success";
-        else return "Failed";
+//        if (signValue.equals(vnp_SecureHash) && params.get("vnp_ResponseCode").equals("00"))
+//            return "Success";
+//        else return "Failed";
 
+        InvoiceCreationRequest invoice = InvoiceCreationRequest.builder()
+                .userId(booking.getCustomerId())
+                .build();
+        if(signValue.equals(vnp_SecureHash))
+        {
+            if (params.get("vnp_ResponseCode").equals("00"))
+            {
+                invoice.setTotalAmount(totalAmount);
+                invoice.setPaymentStatus(PaymentStatus.SUCCESS);
+                invoiceService.createInvoice(invoice);
+                booking.setStatus(BookingStatus.PAID.toString());
+                bookingRepository.save(booking);
+                return "Thanh toán thành công!";
+            }
+            else if (params.get("vnp_ResponseCode").equals("05"))
+            {
+                invoice.setPaymentStatus(PaymentStatus.FAILED);
+                invoiceService.createInvoice(invoice);
+                invoiceService.createInvoice(invoice);
+                booking.setStatus(BookingStatus.FAILED.toString());
+                bookingRepository.save(booking);
+                return "Tài khoản không đủ số dư!";
+            }
+            else
+            {
+                invoice.setPaymentStatus(PaymentStatus.FAILED);
+                invoiceService.createInvoice(invoice);
+                invoiceService.createInvoice(invoice);
+                booking.setStatus(BookingStatus.FAILED.toString());
+                bookingRepository.save(booking);
+                return "Thanh toán thất bại!";
+            }
+        }
+        return "Thanh toán thất bại!";
     }
 }
