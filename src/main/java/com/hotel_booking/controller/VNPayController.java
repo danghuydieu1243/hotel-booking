@@ -2,12 +2,14 @@ package com.hotel_booking.controller;
 
 import com.hotel_booking.dto.response.ApiResponse;
 import com.hotel_booking.service.VNPayService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -27,9 +29,9 @@ public class VNPayController {
     }
 
     @GetMapping("/callback")
-    ApiResponse<String> handlePaymentCallback(@RequestParam Map<String, String> params) {
-        return ApiResponse.<String>builder()
-                .result(vnPayService.handlePaymentCallback(params))
-                .build();
+    public void handlePaymentCallback(@RequestParam Map<String, String> params, HttpServletResponse response)throws IOException {
+        // Chuyển hướng người dùng đến giao diện Frontend
+        String redirectUrl = String.format("http://localhost:3000/payment-result?status=%s", vnPayService.handlePaymentCallback(params));
+        response.sendRedirect(redirectUrl);
     }
 }
