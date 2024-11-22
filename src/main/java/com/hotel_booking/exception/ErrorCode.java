@@ -22,6 +22,7 @@ public enum ErrorCode {
     UTILITIES_NOT_FOUND(1012, "Utilities not found", HttpStatus.NOT_FOUND),
     RATINGS_NOT_FOUND(1013, "Ratings not found", HttpStatus.NOT_FOUND),
     IMAGE_NOT_FOUND(1014, "Image not found", HttpStatus.NOT_FOUND),
+    INVOICE_NOT_FOUND(1015, "Invoice not found", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
