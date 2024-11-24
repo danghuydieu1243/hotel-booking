@@ -19,10 +19,10 @@ FROM --platform=linux/amd64 openjdk:17-jdk-slim AS runtime
 WORKDIR /hotel-booking
 
 # Copy the built WAR file from the previous stage
-COPY --from=build /hotel-booking/target/hotel-booking-0.0.1-SNAPSHOT.jar deploy.jar
+COPY --from=build /hotel-booking/target/hotel-booking-0.0.1-SNAPSHOT.jar deploy.war
 
 # Expose the port on which the application will run
 EXPOSE 8080
 
 # Start the application
-ENTRYPOINT ["java", "-jar", "deploy.jar"]
+ENTRYPOINT ["java", "-jar", "deploy.war"]
