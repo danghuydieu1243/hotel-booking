@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM maven:3.8.3-openjdk-21 AS build
+FROM maven:3.9.4-eclipse-temurin-21 AS build
 WORKDIR /hotel-booking
 
 # Copy only the project definition files
@@ -15,7 +15,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Set up the runtime environment
-FROM --platform=linux/amd64 openjdk:21-jdk-slim AS runtime
+FROM eclipse-temurin:21-jdk-slim AS runtime
 WORKDIR /hotel-booking
 
 # Copy the built JAR file from the build stage
