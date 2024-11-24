@@ -35,8 +35,8 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(request -> request
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Cho phép tất cả yêu cầu OPTIONS
                 .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
-                .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS)
-                .permitAll()
+                .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
+                .requestMatchers(HttpMethod.PUT, PUBLIC_ENDPOINTS).permitAll()
                 .anyRequest()
                 .authenticated());
 
@@ -53,7 +53,7 @@ public class SecurityConfig {
     public CorsFilter corsFilter(){
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        corsConfiguration.addAllowedOrigin("https://tlcn-khach-san-front-end-esm6-g86sczjrp.vercel.app");
+        corsConfiguration.addAllowedOrigin("https://tlcn-khach-san-front-end-esm6.vercel.app/");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.setAllowCredentials(true); // Cho phép thông tin xác thực nếu cần
