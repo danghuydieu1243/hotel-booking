@@ -7,7 +7,7 @@ WORKDIR /hotel-booking
 COPY . .
 
 # Download dependencies and cache them
-RUN mvn dependency:go-offline -B
+#RUN mvn dependency:go-offline -B
 
 # Copy the source code
 #COPY src ./src
