@@ -53,7 +53,7 @@ public class SecurityConfig {
     public CorsFilter corsFilter(){
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        corsConfiguration.addAllowedOrigin("http://localhost:3000");
+        corsConfiguration.addAllowedOrigin("https://tlcn-khach-san-front-end-esm6-g86sczjrp.vercel.app");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.setAllowCredentials(true); // Cho phép thông tin xác thực nếu cần
