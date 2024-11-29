@@ -31,7 +31,7 @@ public class VNPayController {
     @GetMapping("/callback")
     public void handlePaymentCallback(@RequestParam Map<String, String> params, HttpServletResponse response)throws IOException {
         // Chuyển hướng người dùng đến giao diện Frontend
-        String redirectUrl = String.format("http://localhost:3000/payment-result?status=%s", vnPayService.handlePaymentCallback(params));
+        String redirectUrl = String.format("https://hotel-booking-t05s.onrender.com/payment-result?status=%s", vnPayService.handlePaymentCallback(params));
         response.sendRedirect(redirectUrl);
     }
 }
