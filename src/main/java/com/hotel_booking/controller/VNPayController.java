@@ -28,17 +28,17 @@ public class VNPayController {
                 .build();
     }
 
-//    @GetMapping("/callback")
-//    public void handlePaymentCallback(@RequestParam Map<String, String> params, HttpServletResponse response)throws IOException {
-//        // Chuyển hướng người dùng đến giao diện Frontend
-//        String redirectUrl = String.format("https://hotel-booking-t05s.onrender.com/payment-result?status=%s", vnPayService.handlePaymentCallback(params));
-//        response.sendRedirect(redirectUrl);
-//    }
-
     @GetMapping("/callback")
-    ApiResponse<String> handlePaymentCallback(@RequestParam Map<String, String> params){
-        return ApiResponse.<String>builder()
-                .result("Gia dich hoan thanh!")
-                .build();
+    public void handlePaymentCallback(@RequestParam Map<String, String> params, HttpServletResponse response)throws IOException {
+        // Chuyển hướng người dùng đến giao diện Frontend
+        String redirectUrl = String.format("https://hotel-booking-t05s.onrender.com/payment-result?status=%s", vnPayService.handlePaymentCallback(params));
+        response.sendRedirect(redirectUrl);
     }
+
+//    @GetMapping("/callback")
+//    ApiResponse<String> handlePaymentCallback(@RequestParam Map<String, String> params){
+//        return ApiResponse.<String>builder()
+//                .result("Gia dich hoan thanh!")
+//                .build();
+//    }
 }
