@@ -39,4 +39,7 @@ public class User {
     Set<Role> roles;
 
     LocalDate createdAt;
+
+    @OneToOne(mappedBy = "user")
+    ForgotPassword forgotPassword;
 }

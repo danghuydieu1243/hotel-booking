@@ -23,6 +23,7 @@ public enum ErrorCode {
     RATINGS_NOT_FOUND(1013, "Ratings not found", HttpStatus.NOT_FOUND),
     IMAGE_NOT_FOUND(1014, "Image not found", HttpStatus.NOT_FOUND),
     INVOICE_NOT_FOUND(1015, "Invoice not found", HttpStatus.NOT_FOUND),
+    INVALID_OTP(1016, "Invalid OTP for email", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

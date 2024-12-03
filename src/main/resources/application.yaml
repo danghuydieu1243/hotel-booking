@@ -15,6 +15,17 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "uteshop1243@gmail.com"
+    password: "cadd avee jekq igzt"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 jwt:
   signerKey: "lfpXqYyIy0y/rjz2oU8Go7lo5a2EBdUEAbCa/jN9XcnejLa7sJ+N9RvNsUUNoJq2"
@@ -27,3 +38,4 @@ vnp:
   HashSecret: MTPQYDS6I4DQUBKZUVU9VC80YNXO2H1L
   Url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
   ReturnUrl: https://hotel-booking-t05s.onrender.com/api/VnPay/callback
+
