@@ -24,6 +24,7 @@ public class Hotel {
     String street;
     String district;
     String city;
+    @Lob
     String description;
     @Builder.Default
     Double rating = 0.0;
